@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import CharityDonation.Dto.PaginationDto;
 import CharityDonation.Entity.Account;
@@ -70,10 +71,46 @@ public class HomeController {
 		for (Fund fund : funds) {
 			fund.setCurrentAmount(userService.getCurrentMoneyByFund(fund.getId()));
 		}
-
+		
 		mv.addObject("fundsPagination", funds);
+		mv.addObject("categoriesList", userService.getDataCategoriesActive());
+		mv.addObject("foundationList", userService.getDataFoundationActive());
 		mv.addObject("pagination", paginationInfo);
 		mv.setViewName("user/index");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/search_fund")
+	public ModelAndView searchFund(@RequestParam(name = "page", defaultValue = "1") String page,
+			@RequestParam(value = "fundName", required = false)String fundName,
+			@RequestParam(value = "categoryId", required = false)int categoryId,
+			@RequestParam(value = "foundationId", required = false)int foundationId,		
+			Authentication authentication, HttpSession session) {
+		int pageSize = 6;
+		int currentPage = 1;
+		try {
+			currentPage = Integer.parseInt(page);
+		} catch (Exception e) {
+			currentPage = 1;
+		}
+		int totalData = userService.userSearchFunds(fundName, categoryId, foundationId).size();
+		PaginationDto paginationInfo = paginationService.getDataPagination(totalData, currentPage, pageSize);
+		ModelAndView mv = new ModelAndView();
+		if (authentication != null) {
+			Account user = accountServiceImpl.getDataAccountByEmail(authentication.getName());
+			session.setAttribute("user", user);
+		}
+
+		List<Fund> funds = userService.userSearchFundsPagination(fundName, categoryId, foundationId, paginationInfo.getStart(), paginationInfo.getEnd());
+		for (Fund fund : funds) {
+			fund.setCurrentAmount(userService.getCurrentMoneyByFund(fund.getId()));
+		}
+		
+		mv.addObject("fundsPagination", funds);
+		mv.addObject("categoriesList", userService.getDataCategoriesActive());
+		mv.addObject("foundationList", userService.getDataFoundationActive());
+		mv.addObject("pagination", paginationInfo);
+		mv.setViewName("user/search_fund");
 		return mv;
 	}
 
@@ -147,7 +184,7 @@ public class HomeController {
 
 	@PostMapping(value = "/registerAccount")
 	public String registerAccount(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult,
-			Model model) {
+			Model model, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			if (!adminServiceImpl.isUniqueAccount(account.getEmail())) {
 				FieldError error = new FieldError("account", "email", "Email đã tồn tại");
@@ -173,9 +210,11 @@ public class HomeController {
 		account.setPassword(password);
 		account.setRole(2);
 		account.setStatus("Active");
-
+			
 		adminServiceImpl.insertAccount(account);
-		return "redirect: login";
+		model.addAttribute("message", "Đăng ký thành công, hãy kiểm email của bạn");
+		redirectAttributes.addFlashAttribute("message", "Đăng ký thành công, hãy kiểm email của bạn");
+		return "user/login"	;
 	}
 
 	@RequestMapping(value = "/fund/{id}")

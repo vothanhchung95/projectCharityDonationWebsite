@@ -140,6 +140,8 @@ public class FundAdminController {
 			model.addAttribute("errors", bindingResult.getAllErrors());
 			return "admin/edit_fund";
 		}
+		
+		
 		int categoryId = adminServiceImpl.getCategoryIdByName(fund.getCategoryName());
 		int foundationId = adminServiceImpl.getFoundationIdByName(fund.getFoundationName());
 		adminServiceImpl.updateFund(fund, categoryId, foundationId);

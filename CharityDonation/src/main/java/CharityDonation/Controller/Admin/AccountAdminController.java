@@ -174,6 +174,12 @@ public class AccountAdminController {
 			model.addAttribute("errors", bindingResult.getAllErrors());
 			return "admin/edit_account";
 		}
+		Account checkAccount = adminServiceImpl.getDataAccountById(account.getId());
+		if(checkAccount.getRole()==1) {
+			account.setRole(1);
+			account.setStatus("Active");
+		}
+		
 		adminServiceImpl.updateAccount(account);
 		return "redirect: account_management";
 	}

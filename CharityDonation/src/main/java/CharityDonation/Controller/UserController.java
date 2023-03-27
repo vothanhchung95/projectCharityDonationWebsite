@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import CharityDonation.Entity.Account;
 import CharityDonation.Entity.Donation;
+import CharityDonation.Entity.Fund;
 import CharityDonation.Service.AccountServiceImpl;
 import CharityDonation.Service.AdminServiceImpl;
 import CharityDonation.Service.EmailService;
@@ -82,7 +83,7 @@ public class UserController {
 			return "redirect:change_password";
 		}
 		
-		if(newPassword != confirmPassword) {
+		if(!newPassword.equals(confirmPassword) ) {
 			model.addAttribute("confirmFail", "Mật khẩu xác nhận không chính xác, vui lòng nhập đúng mật khẩu mới để xác nhận");
 			redirectAttributes.addFlashAttribute("confirmFail", "Mật khẩu xác nhận không chính xác, vui lòng nhập đúng mật khẩu mới để xác nhận");
 			return "redirect:change_password";
@@ -120,20 +121,36 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/user/donation")
-	public String createDonation(HttpServletRequest request, @RequestParam(value = "amount") int amount,
+	public String createDonation(HttpServletRequest request, @RequestParam(value = "amount") Integer amount,
 			@RequestParam(value = "message") String message, @RequestParam(value = "fundId") int id, Model model,
 			RedirectAttributes redirectAttributes, Authentication authentication) {
 		String referer = request.getHeader("Referer");
 		Donation donation = new Donation();
+		if(amount == null || amount == 0 ) {
+			model.addAttribute("message", "Quyên góp không thành công, số tiền không được để trống và phải lớn hơn 0");
+			redirectAttributes.addFlashAttribute("message", "Quyên góp không thành công, số tiền không được để trống và phải lớn hơn 0");
+			return "redirect:" + referer;
+		}
 		donation.setAmount(amount);
 		donation.setMessage(message);
-		int fundId = id;
+		int fundId = id;		
+		Fund fund = adminServiceImpl.getDataFundById(fundId);
+		if(fund.getStatus().equals("Finish")) {
+			model.addAttribute("message", "Quỹ quyên góp đã hoàn thành. Xin cảm ơn các nhà hảo tâm đã đồng hành");
+			redirectAttributes.addFlashAttribute("message", "Quỹ quyên góp đã hoàn thành. Xin cảm ơn các nhà hảo tâm đã đồng hành");
+			return "redirect:" + referer;
+		}
 		Account account = accountServiceImpl.getDataAccountByEmail(authentication.getName());
 		int accountId = account.getId();
 		
 		userService.createDonation(donation, accountId, fundId);
+		int currentAmount = userService.getCurrentMoneyByFund(fundId);
+		if(currentAmount >= fund.getExpectedAmount()) {
+			adminServiceImpl.finishFund(fundId);
+		}
 		model.addAttribute("message", "Cảm ơn bạn đã đồng hành quyên góp cùng chúng tôi cho các hoàn cảnh khó khăn");
 		redirectAttributes.addFlashAttribute("message", "Cảm ơn bạn đã đồng hành quyên góp cùng chúng tôi cho các hoàn cảnh khó khăn");
+		
 		return "redirect:" + referer;
 	}
 	
