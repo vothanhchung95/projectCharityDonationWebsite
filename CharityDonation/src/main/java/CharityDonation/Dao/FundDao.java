@@ -146,7 +146,7 @@ public class FundDao {
 		List<Fund> funds = new ArrayList<Fund>();
 		String sql = "select fund.id, fund.name, fund.description, fund.content, fund.img_url, fund.created_date, fund.end_date, categories.category_name, foundation.name as found_name, fund.status, fund.expected_amount from fund \r\n"
 				+ "join categories on fund.category_id = categories.id\r\n"
-				+ "join foundation on fund.foundation_id = foundation.id \r\n" + "where fund.status = 'Active'\r\n"
+				+ "join foundation on fund.foundation_id = foundation.id \r\n" + "where fund.status IN ('Active', 'Finish')\r\n"
 				+ "order by fund.id";
 		funds = jdbcTemplate.query(sql, new MapperFund());
 		return funds;
@@ -156,7 +156,7 @@ public class FundDao {
 		List<Fund> funds = new ArrayList<Fund>();
 		String sql = "select fund.id, fund.name, fund.description, fund.content, fund.img_url, fund.created_date, fund.end_date, categories.category_name, foundation.name as found_name, fund.status, fund.expected_amount from fund \r\n"
 				+ "join categories on fund.category_id = categories.id\r\n"
-				+ "join foundation on fund.foundation_id = foundation.id \r\n" + "where fund.status = 'Active'\r\n"
+				+ "join foundation on fund.foundation_id = foundation.id \r\n" + "where fund.status IN ('Active', 'Finish')\r\n"
 				+ "order by fund.id limit " + start + ", " + (end - start);
 		funds = jdbcTemplate.query(sql, new MapperFund());
 		return funds;
@@ -167,7 +167,7 @@ public class FundDao {
 		String sql = "select fund.id, fund.name, fund.description, fund.content, fund.img_url, fund.created_date, fund.end_date, categories.category_name, foundation.name as found_name, fund.status, fund.expected_amount from fund \r\n"
 				+ "join categories on fund.category_id = categories.id\r\n"
 				+ "join foundation on fund.foundation_id = foundation.id \r\n"
-				+ "where fund.status = 'Active' and category_id = " + categoryId + " " + "order by fund.id";
+				+ "where fund.status IN ('Active', 'Finish') and category_id = " + categoryId + " " + "order by fund.id";
 		funds = jdbcTemplate.query(sql, new MapperFund());
 		return funds;
 	}
@@ -177,9 +177,72 @@ public class FundDao {
 		String sql = "select fund.id, fund.name, fund.description, fund.content, fund.img_url, fund.created_date, fund.end_date, categories.category_name, foundation.name as found_name, fund.status, fund.expected_amount from fund \r\n"
 				+ "join categories on fund.category_id = categories.id\r\n"
 				+ "join foundation on fund.foundation_id = foundation.id \r\n"
-				+ "where fund.status = 'Active' and foundation_id = " + foundationId + " " + "order by fund.id";
+				+ "where fund.status IN ('Active', 'Finish') and foundation_id = " + foundationId + " " + "order by fund.id";
 		funds = jdbcTemplate.query(sql, new MapperFund());
 		return funds;
 	}
+	
+	public List<Fund> userSearchFunds(String fundName, int categoryId, int foundationId) {
+		List<Fund> searchFunds = new ArrayList<Fund>();
+		StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.append(
+				"select fund.id, fund.name, fund.description, fund.content, fund.img_url, fund.created_date, fund.end_date, categories.category_name, foundation.name as found_name, fund.status, fund.expected_amount from fund\r\n"
+						+ "join categories on fund.category_id = categories.id\r\n"
+						+ "join foundation on fund.foundation_id = foundation.id " + "where fund.status IN ('Active', 'Finish')");
 
+		if (fundName != null && !fundName.isEmpty()) {
+			sqlBuilder.append(" and fund.name like " + "'%" + fundName + "%'");
+		}
+		
+		if (categoryId > 0) {
+			sqlBuilder.append(" and fund.category_id = " + categoryId);
+		} else {
+			sqlBuilder.append("");
+		}
+
+		if (foundationId > 0) {
+			sqlBuilder.append(" and fund.foundation_id = " + foundationId);
+		} else {
+			sqlBuilder.append("");
+		}
+		sqlBuilder.append(" order by fund.id");
+		String sql = sqlBuilder.toString();
+		searchFunds = jdbcTemplate.query(sql, new MapperFund());
+		return searchFunds;
+	}
+
+	public List<Fund> userSearchFundsPagination(String fundName, int categoryId, int foundationId, int start, int end) {
+		List<Fund> searchFunds = new ArrayList<Fund>();
+		StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.append(
+				"select fund.id, fund.name, fund.description, fund.content, fund.img_url, fund.created_date, fund.end_date, categories.category_name, foundation.name as found_name, fund.status, fund.expected_amount from fund\r\n"
+						+ "join categories on fund.category_id = categories.id\r\n"
+						+ "join foundation on fund.foundation_id = foundation.id " + "where fund.status IN ('Active', 'Finish')");
+
+		if (fundName != null && !fundName.isEmpty()) {
+			sqlBuilder.append(" and fund.name like " + "'%" + fundName + "%'");
+		}
+		
+		if (categoryId > 0) {
+			sqlBuilder.append(" and fund.category_id = " + categoryId);
+		} else {
+			sqlBuilder.append("");
+		}
+
+		if (foundationId > 0) {
+			sqlBuilder.append(" and fund.foundation_id = " + foundationId);
+		} else {
+			sqlBuilder.append("");
+		}
+		sqlBuilder.append(" order by fund.id");
+		sqlBuilder.append(" limit " + start + ", " + (end - start));
+		String sql = sqlBuilder.toString();
+		searchFunds = jdbcTemplate.query(sql, new MapperFund());
+		return searchFunds;
+	}
+	
+	public void finishFund(int id) {
+		String sql = "update fund set status = 'Finish' where id = " + id;
+		jdbcTemplate.update(sql);
+	}
 }

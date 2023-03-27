@@ -38,12 +38,12 @@ public class UserService implements IUserService {
 	public List<Foundation> getDataFoundationPaginationActive(int start, int end) {
 		return foundationDAO.getDataFoundationPaginationActive(start, end);
 	}
-	
+
 	@Override
 	public List<Fund> getDataFundByFoundationActive(int foundationId) {
 		return fundDao.getDataFundByFoundationActive(foundationId);
 	}
-	
+
 	@Override
 	public List<Categories> getDataCategoriesActive() {
 		return categoriesDAO.getDataCategoriesActive();
@@ -63,7 +63,7 @@ public class UserService implements IUserService {
 	public List<Fund> getDataFundsPaginationActive(int start, int end) {
 		return fundDao.getDataFundsPaginationActive(start, end);
 	}
-	
+
 	@Override
 	public List<Fund> getDataFundByCategoriesActive(int categoryId) {
 		return fundDao.getDataFundByCategoriesActive(categoryId);
@@ -76,7 +76,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public void createDonation(Donation donation, int accountId, int fundId) {
-		donationDAO.createDonation(donation, accountId, fundId);	
+		donationDAO.createDonation(donation, accountId, fundId);
 	}
 
 	@Override
@@ -89,9 +89,14 @@ public class UserService implements IUserService {
 		accountDAO.updateUser(user);
 	}
 
-	
+	@Override
+	public List<Fund> userSearchFunds(String fundName, int categoryId, int foundationId) {
+		return fundDao.userSearchFunds(fundName, categoryId, foundationId);
+	}
 
-	
-	
-	
+	@Override
+	public List<Fund> userSearchFundsPagination(String fundName, int categoryId, int foundationId, int start, int end) {
+		return fundDao.userSearchFundsPagination(fundName, categoryId, foundationId, start, end);
+	}
+
 }

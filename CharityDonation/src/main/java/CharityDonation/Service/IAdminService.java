@@ -48,6 +48,8 @@ public interface IAdminService {
 	public void updateFund(Fund fund, int categoryId, int foundationId);
 
 	public void insertFund(Fund fund, int categoryId, int foundationId);
+	
+	public void finishFund(int id);
 
 	public List<Categories> getDataCategories();
 

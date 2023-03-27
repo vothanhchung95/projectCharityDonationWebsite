@@ -35,4 +35,8 @@ public interface IUserService {
 	public List<Donation> searchDonationByAccount(String accountName);
 	
 	public void updateUser(Account user);
+	
+	public List<Fund> userSearchFunds(String fundName, int categoryId, int foundationId);
+	
+	public List<Fund> userSearchFundsPagination(String fundName, int categoryId, int foundationId, int start, int end);
 }

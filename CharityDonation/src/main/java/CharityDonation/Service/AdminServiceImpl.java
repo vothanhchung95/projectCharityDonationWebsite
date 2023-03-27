@@ -123,6 +123,11 @@ public class AdminServiceImpl implements IAdminService {
 	}
 	
 	@Override
+	public void finishFund(int id) {
+		fundDao.finishFund(id);	
+	}
+	
+	@Override
 	public List<Categories> getDataCategories() {
 		return categoriesDAO.getDataCategories();
 	}
@@ -301,6 +306,7 @@ public class AdminServiceImpl implements IAdminService {
 	public boolean isUniqueAccount(String email) {
 		return accountDAO.isUniqueAccount(email);
 	}
+
 
 
 }
