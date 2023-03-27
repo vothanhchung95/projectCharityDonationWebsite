@@ -37,10 +37,10 @@
 						<tr>
 							<th>ID</th>
 							<th>Số tiền</th>
-							<th>Tin nhắn</th>
+							<th class="d-none d-sm-table-cell">Tin nhắn</th>
 							<th>Ngày tạo</th>
 							<th>Tài khoản</th>
-							<th>Quỹ</th>
+							<th class="d-none d-sm-table-cell">Quỹ</th>
 
 						</tr>
 					</thead>
@@ -50,10 +50,10 @@
 							<tr>
 								<td>${item.id}</td>
 								<td><fmt:formatNumber type="currency" value="${item.amount}" /></td>
-								<td>${item.message}</td>
+								<td class="d-none d-sm-table-cell">${item.message}</td>
 								<td>${item.createdDate}</td>
 								<td>${item.accountName}</td>
-								<td>${item.fundName}</td>
+								<td class="d-none d-sm-table-cell">${item.fundName}</td>
 
 							</tr>
 						</c:forEach>

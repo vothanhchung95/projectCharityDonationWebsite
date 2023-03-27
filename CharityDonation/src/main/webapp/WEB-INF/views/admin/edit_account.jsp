@@ -41,16 +41,6 @@
 							path="email" /></span>
 				</div>
 
-
-				<label class="form-label">Password</label>
-
-				<div class="form-group ">
-					<form:input type="password" class="form-control" path="password"
-						readonly="true" />
-					<span class="form-message text-danger"><form:errors
-							path="password" /></span>
-
-				</div>
 				<div class="form-group">
 					<label class="form-label">Phone</label>
 					<form:input type="number" class="form-control" path="phone" />

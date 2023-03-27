@@ -53,7 +53,7 @@
 						<button id="btn-Save" type="submit" class="btn btn-success mx-1">
 							<i class="fa-solid fa-floppy-disk"></i> Save
 						</button>
-						<a href="<c:url value = "/admin/account_management"/>">
+						<a href="<c:url value = "/"/>">
 							<button type="button" class="btn btn-primary mx-1">Cancel</button>
 						</a> <a href="<c:url value = "/user/change_password"/>">
 							<button type="button" class="btn btn-warning">Đổi mật

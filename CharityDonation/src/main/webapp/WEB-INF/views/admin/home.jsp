@@ -10,7 +10,7 @@
 <body>
 	<div class="mt-5 container">
 		<h2 class="text-center my-5">Trang Quản lý Admin</h2>
-		<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+		<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
 			<div class="col mb-4">
 				<div class="card shadow" style="height: 100%">
 					<a target="_blank"

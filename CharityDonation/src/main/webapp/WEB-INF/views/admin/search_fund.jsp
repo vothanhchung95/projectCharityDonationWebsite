@@ -7,11 +7,11 @@
 <title>Quản lý Qũy quyên góp</title>
 <body>
 
-	<div class="mx-5">
+	<div class="mx-lg-5">
 		<h2 class="text-center my-5">Quản lý Qũy quyên góp</h2>
 
 		<div class="row mb-3">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<form class="row"
 					action='<c:url value = "/admin/search_fund"></c:url>' method="get">
 					<div class="col-md-1">
@@ -26,19 +26,21 @@
 						<input type="text" class="form-control" placeholder="Danh mục"
 							name="categoryName" value="${param.categoryName}" />
 					</div>
-					<button class="btn btn-primary " type="submit">
-						<i class="fas fa-search"></i> Tìm
-					</button>
+					<div class="col-md-2 d-flex justify-content-between">
+						<button class="btn btn-primary " type="submit">
+							<i class="fas fa-search"></i> Tìm
+						</button>
+						<a href="<c:url value = "/admin/fund_management/add_fund"/>">
+							<button class="btn btn-success " type="button">
+								<i class="fas fa-plus"></i> Thêm
+							</button>
+						</a>
+
+					</div>
+
 				</form>
 			</div>
-			<div class="col-md-2 d-flex justify-content-end">
 
-
-				<button class="btn btn-success mr-2" type="submit">
-					<i class="fas fa-plus"></i> Thêm
-				</button>
-
-			</div>
 
 		</div>
 
@@ -101,13 +103,13 @@
 									<i class="fas fa-trash"></i>
 								</button></th>
 							<th>ID</th>
-							<th>Tên quỹ</th>
-							<th>Ngày tạo</th>
-							<th>Ngày kết thúc</th>
+							<th class="d-none d-sm-table-cell">Tên quỹ</th>
+							<th class="d-none d-sm-table-cell">Ngày tạo</th>
+							<th class="d-none d-sm-table-cell">Ngày kết thúc</th>
 							<th>Danh mục</th>
-							<th>Nhà tổ chức</th>
+							<th class="d-none d-sm-table-cell">Nhà tổ chức</th>
 							<th>Trạng thái</th>
-							<th>Số tiền</th>
+							<th class="d-none d-sm-table-cell">Số tiền</th>
 							<th>Chức năng</th>
 						</tr>
 					</thead>
@@ -124,11 +126,11 @@
 
 
 								<td>${item.id}</td>
-								<td class="col-4">${item.name}</td>
-								<td class="col-1">${item.createdDate}</td>
-								<td class="col-1">${item.endDate}</td>
+								<td class="d-none d-sm-table-cell">${item.name}</td>
+								<td class="d-none d-sm-table-cell">${item.createdDate}</td>
+								<td class="d-none d-sm-table-cell">${item.endDate}</td>
 								<td>${item.categoryName}</td>
-								<td>${item.foundationName}</td>
+								<td class="d-none d-sm-table-cell">${item.foundationName}</td>
 								<td><c:choose>
 										<c:when test="${item.status == 'Active'}">
 											<p class="badge badge-success rounded p-2 text-light">${item.status}</p>
@@ -140,7 +142,7 @@
 											<p class="badge badge-info rounded p-2 text-light">${item.status}</p>
 										</c:when>
 									</c:choose></td>
-								<td><fmt:formatNumber type="currency"
+								<td class="d-none d-sm-table-cell"><fmt:formatNumber type="currency"
 										value="${item.expectedAmount}" /></td>
 								<td class="col-1"><a
 									href='<c:url value = "/admin/fund_management/edit_fund/${item.id}"/>'>

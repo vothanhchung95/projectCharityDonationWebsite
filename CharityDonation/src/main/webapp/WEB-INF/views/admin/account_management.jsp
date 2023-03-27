@@ -6,32 +6,34 @@
 <title>Quản lý Tài khoản</title>
 <body>
 
-	<div class="mx-5">
+	<div class="mx-lg-5">
 		<h2 class="text-center my-5">Quản lý Tài khoản</h2>
 		<div class="row mb-3">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<form class="row"
 					action='<c:url value = "/admin/search_account"></c:url>'>
 					<div class="col-md-4">
-						<input type="text" class="form-control" placeholder="Họ và tên" name="username" />
+						<input type="text" class="form-control" placeholder="Họ và tên"
+							name="username" />
 					</div>
 					<div class="col-md-4">
-						<input type="text" class="form-control" placeholder="Số điện thoại"
-							name="phone" />
+						<input type="text" class="form-control"
+							placeholder="Số điện thoại" name="phone" />
+					</div>
+					<div class="col-md-2 d-flex justify-content-between">
+						<button class="btn btn-primary " type="submit">
+							<i class="fas fa-search"></i> Tìm
+						</button>
+						<a href="<c:url value = "/admin/account_management/add_account"/>">
+							<button class="btn btn-success mr-2" type="button">
+								<i class="fas fa-plus"></i> Thêm
+							</button>
+						</a>
+
 					</div>
 
-					<button class="btn btn-primary " type="submit">
-						<i class="fas fa-search"></i> Tìm
-					</button>
-				</form>
-			</div>
-			<div class="col-md-2 d-flex justify-content-end">
-				<a href="<c:url value = "/admin/account_management/add_account"/>">
-					<button class="btn btn-success mr-2" type="submit">
-						<i class="fas fa-plus"></i> Thêm
-					</button>
-				</a>
 
+				</form>
 			</div>
 
 		</div>
@@ -75,9 +77,9 @@
 								</button></th>
 							<th>ID</th>
 							<th>Họ và tên</th>
-							<th>Email</th>
-							<th>Điện thoại</th>
-							<th>Địa chỉ</th>
+							<th class="d-none d-sm-table-cell">Email</th>
+							<th class="d-none d-sm-table-cell">Điện thoại</th>
+							<th class="d-none d-sm-table-cell">Địa chỉ</th>
 							<th>Vai trò</th>
 							<th>Trạng thái</th>
 						</tr>
@@ -96,9 +98,9 @@
 
 								<td>${item.id}</td>
 								<td>${item.username}</td>
-								<td>${item.email}</td>
-								<td>${item.phone}</td>
-								<td>${item.address}</td>
+								<td class="d-none d-sm-table-cell">${item.email}</td>
+								<td class="d-none d-sm-table-cell">${item.phone}</td>
+								<td class="d-none d-sm-table-cell">${item.address}</td>
 								<td><c:choose>
 										<c:when test="${item.role == 1}">
 											<p class="text-danger font-weight-bold">Admin</p>
@@ -118,7 +120,7 @@
 										</c:when>
 
 									</c:choose></td>
-								<td class="col-1"><a
+								<td class="col-1 p-0"><a
 									href='<c:url value = "/admin/account_management/edit_account/${item.id}"/>'>
 										<button type="button" class="btn btn-info">
 											<i class="fas fa-edit"></i>

@@ -37,9 +37,14 @@
 <script src='<c:url  value = "/js/admin-delete-account.js"/>'></script>
 
 <style>
-  body {
-    font-family: 'Open Sans', sans-serif;
-  }
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+td, th {
+	max-height: 3em; /* 5 dòng */
+	overflow: hidden;
+}
 </style>
 
 

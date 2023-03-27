@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
-<title>Home</title>
+<title>Tìm kiếm</title>
 <body>
 
 	<!-- 
@@ -61,10 +61,9 @@ Body Section
 
 
 		</div>
-
-		<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 d-flex">
-			<c:forEach var="item" items="${fundsPagination}">
-				<c:if test="${item.status == 'Active'}">
+		<c:if test="${fundsPagination.size() > 0}">
+			<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 d-flex">
+				<c:forEach var="item" items="${fundsPagination}">
 					<div class="col mb-4 d-flex ">
 						<div class=" d-flex justify-content-between flex-column">
 							<div
@@ -118,68 +117,28 @@ Body Section
 						</div>
 
 					</div>
-				</c:if>
-				
-				<c:if test="${item.status == 'Finish'}">
-					<div class="col mb-4 d-flex ">
-						<div class=" d-flex justify-content-between flex-column">
-							<div
-								class="card h-100 shadow d-flex justify-content-between flex-column ">
-								<a href="<c:url value = "/fund/${item.id}"/>"
-									class="text-decoration-none text-dark"> <img
-									class="img-fluid" alt="" src="${item.imgUrl}" />
-									<div class="card-body">
+				</c:forEach>
 
-										<h5 class="card-title pb-2 font-weight-bold">${item.name}</h5>
-										<h6 class="card-subtitle mb-2 pb-2 text-muted font-italic">${item.foundationName}</h6>
-										<p class="card-text mb-1">${item.description}</p>
+			</div>
+		</c:if>
+		<c:if test="${fundsPagination.size() == 0}">
 
-									</div>
-								</a>
-								<div class=" ">
-									<div class="row m-3 justify-content-between">
-										<div>
-											<span class="font-weight-bold"> <fmt:formatNumber
-													type="currency" value="${item.currentAmount}" /></span> /<span
-												class="text-secondary"><fmt:formatNumber
-													type="currency" value="${item.expectedAmount}" /></span>
-										</div>
-										<div>
-											<fmt:parseDate var="date" value="${item.endDate}"
-												pattern="yyyy-MM-dd" />
-											<span class="badge badge-success rounded p-2 text-light"><fmt:formatDate
-													value="${date}" pattern="dd-MM-yyyy" /></span>
-										</div>
-									</div>
-									<div class="my-1 mx-3 flex  rounded-lg "
-										style="background-color: #ced4da">
-										<div class="rounded-lg bg-success" aria-valuemin="0"
-											aria-valuemax="100"
-											style="width: ${(item.currentAmount / item.expectedAmount) * 100}%; height: 6px"></div>
-									</div>
-									<div class="row m-3 justify-content-between">
-										<a href="<c:url value = "/fund/${item.id}"/>">
-											<button class="btn btn-outline-success  align-items-end">Xem quỹ</button>
-										</a>
-										<p class="mb-0 text-secondary">
-											Đạt được <br> <span class="text-dark font-weight-bold">Hoàn thành</span>
-										</p>
-									</div>
-								</div>
-							</div>
+			<div class="my-5  justify-content-center">
+				<h4 class="text-center font-weight-bold mb-5">Không tìm thấy
+					kết quả, hãy thử lại với từ khóa khác</h4>
+				<div class="d-flex justify-items-center">
+					<a class="mx-auto" href='<c:url value="/"></c:url>'>
+						<button class="btn btn-success">Quay về trang chủ</button>
+					</a>
+				</div>
+			</div>
 
-						</div>
-
-					</div>
-				</c:if>
-			</c:forEach>
-
-		</div>
+		</c:if>
 		<div>
 			<ul class="pagination justify-content-center">
 				<c:if test="${pagination.currentPage > 1}">
 					<li class="page-item"><a class="page-link"
-						href="<c:url value = "/home?page=${pagination.currentPage - 1}"/>"><i
+						href="<c:url value = "/search_fund?page=${pagination.currentPage - 1}&fundName=${param.fundName}&categoryId=${param.categoryId}&foundationId=${param.foundationId}"/>"><i
 							class="fas fa-angle-left"></i></a></li>
 
 				</c:if>
@@ -188,11 +147,11 @@ Body Section
 					<c:choose>
 						<c:when test="${pageNumber == pagination.currentPage}">
 							<li class="page-item active"><a class="page-link"
-								href="<c:url value = "/home?page=${pageNumber}"/>">${pageNumber}</a></li>
+								href="<c:url value = "/search_fund?page=${pageNumber}&fundName=${param.fundName}&categoryId=${param.categoryId}&foundationId=${param.foundationId}"/>">${pageNumber}</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item"><a class="page-link"
-								href="<c:url value = "/home?page=${pageNumber}"/>">${pageNumber}</a></li>
+								href="<c:url value = "/search_fund?page=${pageNumber}&fundName=${param.fundName}&categoryId=${param.categoryId}&foundationId=${param.foundationId}"/>">${pageNumber}</a></li>
 						</c:otherwise>
 					</c:choose>
 
@@ -201,7 +160,7 @@ Body Section
 
 				<c:if test="${pagination.currentPage < pagination.totalPage}">
 					<li class="page-item"><a class="page-link"
-						href="<c:url value = "/home?page=${pagination.currentPage + 1}"></c:url>"><i
+						href="<c:url value = "/search_fund?page=${pagination.currentPage + 1}&fundName=${param.fundName}&categoryId=${param.categoryId}&foundationId=${param.foundationId}"></c:url>"><i
 							class="fas fa-angle-right"></i></a></li>
 
 				</c:if>

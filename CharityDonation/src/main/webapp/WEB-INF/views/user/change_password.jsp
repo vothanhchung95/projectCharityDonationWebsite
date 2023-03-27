@@ -16,12 +16,13 @@
 
 			<form action="<c:url value="/user/updatepassword" />"
 				class="create-form" method="GET" accept-charset="UTF-8">
-				
+
 
 				<div class="form-group">
 					<label class="form-label">Email</label> <input type="text"
-						class="form-control-plaintext" name="email" value="${user.email}" readonly><span
-						class="form-message text-danger"><form:errors name="email" /></span>
+						class="form-control-plaintext" name="email" value="${user.email}"
+						readonly><span class="form-message text-danger"><form:errors
+							name="email" /></span>
 				</div>
 
 
@@ -33,27 +34,31 @@
 
 				</div>
 
-				<label class="form-label">Nhập mật khẩu mới (Tối thiểu 8 ký tự)</label>
+				<label class="form-label">Nhập mật khẩu mới (Tối thiểu 8 ký
+					tự)</label>
 
 				<div class="form-group ">
 					<input type="password" class="form-control" name="newPassword" />
-				
-						<span class="form-message text-danger">${invalidPassword}</span>
-			
+
+					<span class="form-message text-danger">${invalidPassword}</span>
+
 
 				</div>
-				
+
 				<label class="form-label">Xác nhận mật khẩu mới</label>
 
 				<div class="form-group ">
 					<input type="password" class="form-control" name="confirmPassword" />
-				
-						<span class="form-message text-danger">${confirmFail}</span>
-			
+
+					<span class="form-message text-danger">${confirmFail}</span>
+
 
 				</div>
 				<button class="btn bg-success text-light" type="submit">Thay
 					đổi</button>
+				<a href="<c:url value = "/user"/>">
+					<button type="button" class="btn btn-primary mx-1">Cancel</button>
+				</a>
 
 			</form>
 

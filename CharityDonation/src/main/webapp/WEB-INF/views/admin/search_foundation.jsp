@@ -6,35 +6,35 @@
 <title>Tìm kiếm Nhà tổ chức</title>
 <body>
 
-	<div class="mx-5">
+	<div class="mx-lg-5">
 		<h2 class="text-center my-5">Tìm kiếm Nhà tổ chức</h2>
 
 		<div class="row mb-3">
-			<div class="col-md-10">
+			<div class="col-md-12">
 				<form class="row"
 					action='<c:url value = "/admin/search_foundation"></c:url>'>
 					<div class="col-md-2">
-						<input type="text" class="form-control" placeholder="ID" name="id" value="${param.id}"/>
+						<input type="text" class="form-control" placeholder="ID" name="id" value="${param.id}" />
 					</div>
 					<div class="col-md-6">
-						<input type="text" class="form-control" placeholder="Tên danh mục"
-							name="name" value="${param.name}"/>
+						<input type="text" class="form-control" placeholder="Nhà tổ chức"
+							name="name" value="${param.name}" />
+					</div>
+					<div class="col-md-2 d-flex justify-content-between">
+						<button class="btn btn-primary " type="submit">
+							<i class="fas fa-search"></i> Tìm
+						</button>
+						<a
+							href="<c:url value = "/admin/foundation_management/add_foundation"/>">
+							<button class="btn btn-success mr-2" type="button">
+								<i class="fas fa-plus"></i> Thêm
+							</button>
+						</a>
 					</div>
 
-					<button class="btn btn-primary " type="submit">
-						<i class="fas fa-search"></i> Tìm
-					</button>
 				</form>
 			</div>
-			<div class="col-md-2 d-flex justify-content-end">
-				<a
-					href="<c:url value = "/admin/foundation_management/add_foundation"/>">
-					<button class="btn btn-success mr-2" type="submit">
-						<i class="fas fa-plus"></i> Thêm
-					</button>
-				</a>
 
-			</div>
 
 		</div>
 		<c:if test="${searchFoundationPagination.size() != 0}">
@@ -98,7 +98,7 @@
 									</button></th>
 								<th>ID</th>
 								<th>Tên danh mục</th>
-								<th>Mô tả</th>
+								<th class="d-none d-sm-table-cell">Mô tả</th>
 								<th>Trạng thái</th>
 							</tr>
 						</thead>
@@ -114,7 +114,7 @@
 										</c:choose></td>
 									<td>${item.id}</td>
 									<td>${item.name}</td>
-									<td>${item.description}</td>
+									<td class="d-none d-sm-table-cell">${item.description}</td>
 
 									<td><c:choose>
 											<c:when test="${item.status == 'Active'}">

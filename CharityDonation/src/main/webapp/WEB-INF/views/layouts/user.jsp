@@ -36,9 +36,10 @@
 <script src='<c:url  value = "/js/admin-delete-element.js"/>'></script>
 <script src='<c:url  value = "/js/admin-delete-account.js"/>'></script>
 <style>
-body {
-	font-family: 'Open Sans', sans-serif;
-}
+	body {
+		font-family: 'Open Sans', sans-serif;
+	}
+	
 </style>
 </head>
 <body style="background-color: #ebfbee">
