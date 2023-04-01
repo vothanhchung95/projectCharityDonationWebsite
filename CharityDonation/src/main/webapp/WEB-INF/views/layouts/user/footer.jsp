@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class=" mt-5">
 	<!-- Footer -->
 	<footer class="text-center text-lg-start text-white"
@@ -28,16 +28,16 @@
 						<h6 class="text-uppercase mb-4 font-weight-bold">Danh mục từ
 							thiện</h6>
 						<p>
-							<a class="text-white">Vì Trẻ Em</a>
+							<a href="<c:url value="/categories/1" />" class="text-white">Vì Trẻ Em</a>
 						</p>
 						<p>
-							<a class="text-white">Bệnh Hiểm Nghèo</a>
+							<a href="<c:url value="/categories/3" />" class="text-white">Bệnh Hiểm Nghèo</a>
 						</p>
 						<p>
-							<a class="text-white">Hoàn Cảnh Khó Khăn</a>
+							<a href="<c:url value="/categories/4" />" class="text-white">Hoàn Cảnh Khó Khăn</a>
 						</p>
 						<p>
-							<a class="text-white">Hỗ Trợ Giáo Dục</a>
+							<a href="<c:url value="/categories/5" />" class="text-white">Hỗ Trợ Giáo Dục</a>
 						</p>
 					</div>
 					<!-- Grid column -->
@@ -48,16 +48,16 @@
 					<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
 						<h6 class="text-uppercase mb-4 font-weight-bold">Tổ chức</h6>
 						<p>
-							<a class="text-white">VinaCapital Foundation</a>
+							<a href="<c:url value="/foundation/4" />" class="text-white">VinaCapital Foundation</a>
 						</p>
 						<p>
-							<a class="text-white">Quỹ Vì Tầm Vóc Việt</a>
+							<a href="<c:url value="/foundation/5" />" class="text-white">Quỹ Vì Tầm Vóc Việt</a>
 						</p>
 						<p>
-							<a class="text-white">Saigon Children’s Charity</a>
+							<a href="<c:url value="/foundation/6" />" class="text-white">Saigon Children’s Charity</a>
 						</p>
 						<p>
-							<a class="text-white">Quỹ Trăng Khuyết</a>
+							<a href="<c:url value="/foundation/10" />" class="text-white">Quỹ Trăng Khuyết</a>
 						</p>
 					</div>
 
@@ -96,7 +96,7 @@
 						<!-- Copyright -->
 						<div class="p-3">
 							© 2023 Copyright: <a class="text-white"
-								href="#">vothanhchung</a>
+								href="#">vothanhchung95@gmail.com</a>
 						</div>
 						<!-- Copyright -->
 					</div>

@@ -80,10 +80,6 @@
 									<p>Đã kết thúc quá trình gây quỹ, xin cảm ơn tấm lòng của
 										các nhà hảo tâm</p>
 
-
-
-
-
 								</div>
 								<div class="mt-3">
 									<span class="font-weight-bold"> <fmt:formatNumber
@@ -93,9 +89,8 @@
 								</div>
 								<div class="mt-3  flex  rounded-lg "
 									style="background-color: #ced4da">
-									<div class="rounded-lg bg-success" aria-valuemin="0"
-										aria-valuemax="100"
-										style="width: ${(fund.currentAmount / fund.expectedAmount) * 100}%; height: 6px"></div>
+									<div class="rounded-lg bg-info" 
+										style="width: ${(fund.currentAmount / fund.expectedAmount) <= 1 ? (fund.currentAmount / fund.expectedAmount) * 100 : 100}%; height: 6px"></div>
 								</div>
 
 								<div class="row mx-0 mt-3 justify-content-center">

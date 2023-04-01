@@ -70,7 +70,7 @@
 		</div>
 		<div class="col-lg-8">
 			<h2 class="text-center my-5">Lịch sử quyên góp</h2>
-			<c:if test="${donations.size() > 0}">
+			<c:if test="${donationsPagination.size() > 0}">
 				<div class="table-responsive ">
 					<table class="table table-bordered table-light shadow-sm">
 						<thead>
@@ -82,7 +82,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="item" items="${donations}">
+							<c:forEach var="item" items="${donationsPagination}">
 								<tr>
 									<td>${item.fundName}</td>
 									<td><fmt:formatNumber type="currency"
@@ -95,11 +95,46 @@
 					</table>
 				</div>
 			</c:if>
-				<c:if test="${donations.size() == 0}">
-					<h4 class="text-center">Bạn chưa thực hiện lượt quyên góp nào</h4>
-					<a href='<c:url value="/"/>' > <h5 class="text-center text-success font-weight-bold">Xem các quỹ quyên góp của chúng tôi</h5></a>
-				
-				</c:if>
+			<c:if test="${donationsPagination.size() == 0}">
+				<h4 class="text-center">Bạn chưa thực hiện lượt quyên góp nào</h4>
+				<a href='<c:url value="/"/>'>
+					<h5 class="text-center text-success font-weight-bold">Xem các
+						quỹ quyên góp của chúng tôi</h5>
+				</a>
+
+			</c:if>
+			<div>
+				<ul class="pagination justify-content-center">
+					<c:if test="${pagination.currentPage > 1}">
+						<li class="page-item"><a class="page-link"
+							href="<c:url value = "/user?page=${pagination.currentPage - 1}"/>"><i
+								class="fas fa-angle-left"></i></a></li>
+
+					</c:if>
+
+					<c:forEach begin="1" end="${pagination.totalPage}" var="pageNumber">
+						<c:choose>
+							<c:when test="${pageNumber == pagination.currentPage}">
+								<li class="page-item active"><a class="page-link"
+									href="<c:url value = "/user?page=${pageNumber}"/>">${pageNumber}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link"
+									href="<c:url value = "/user?page=${pageNumber}"/>">${pageNumber}</a></li>
+							</c:otherwise>
+						</c:choose>
+
+					</c:forEach>
+
+
+					<c:if test="${pagination.currentPage < pagination.totalPage}">
+						<li class="page-item"><a class="page-link"
+							href="<c:url value = "/user?page=${pagination.currentPage + 1}"></c:url>"><i
+								class="fas fa-angle-right"></i></a></li>
+
+					</c:if>
+				</ul>
+			</div>
 		</div>
 	</div>
 

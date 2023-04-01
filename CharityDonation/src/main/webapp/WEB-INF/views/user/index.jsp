@@ -147,19 +147,19 @@ Body Section
 										<div>
 											<fmt:parseDate var="date" value="${item.endDate}"
 												pattern="yyyy-MM-dd" />
-											<span class="badge badge-success rounded p-2 text-light"><fmt:formatDate
+											<span class="badge badge-info rounded p-2 text-light"><fmt:formatDate
 													value="${date}" pattern="dd-MM-yyyy" /></span>
 										</div>
 									</div>
 									<div class="my-1 mx-3 flex  rounded-lg "
 										style="background-color: #ced4da">
-										<div class="rounded-lg bg-success" aria-valuemin="0"
+										<div class="rounded-lg bg-info" aria-valuemin="0"
 											aria-valuemax="100"
-											style="width: ${(item.currentAmount / item.expectedAmount) * 100}%; height: 6px"></div>
+											style="width: ${(item.currentAmount / item.expectedAmount) <= 1 ? ((item.currentAmount / item.expectedAmount) * 100) : 100}%; height: 6px"></div>
 									</div>
 									<div class="row m-3 justify-content-between">
 										<a href="<c:url value = "/fund/${item.id}"/>">
-											<button class="btn btn-outline-success  align-items-end">Xem quỹ</button>
+											<button class="btn btn-outline-info  align-items-end">Xem quỹ</button>
 										</a>
 										<p class="mb-0 text-secondary">
 											Đạt được <br> <span class="text-dark font-weight-bold">Hoàn thành</span>

@@ -43,15 +43,19 @@
 					<li class="nav-item pr-2"><a class="nav-link text-light  my-0"
 						href="<c:url value = "/foundation"/>"><i
 							class="fas fa-users pr-1"></i>Tổ chức</a></li>
-					
+
 
 					<li class="nav-"><a class="nav-link text-light  my-0"
-						href="<c:url value="/user" />"><i
-							class="fas fa-user pr-1"></i>Tài khoản</a></li>
+						href="<c:url value="/user" />"><i class="fas fa-user pr-1"></i>Tài
+							khoản</a></li>
 					<c:if test="${user.role == 1}">
 						<li class="nav-"><a class="nav-link text-light  my-0"
-							href="<c:url value = "/admin"/>"><i class="fas fa-tools pr-1"></i>Trang Admin</a></li>
+							href="<c:url value = "/admin"/>"><i class="fas fa-tools pr-1"></i>Trang
+								Admin</a></li>
 					</c:if>
+					<li class="nav-"><a class="nav-link text-light  my-0"
+						href="<c:url value="/about_us" />"><i
+							class="fas fa-info-circle pr-1"></i>Về chúng tôi</a></li>
 				</ul>
 				<div class="row">
 					<c:if test="${user != null}">

@@ -64,59 +64,115 @@ Body Section
 		<c:if test="${fundsPagination.size() > 0}">
 			<div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 d-flex">
 				<c:forEach var="item" items="${fundsPagination}">
-					<div class="col mb-4 d-flex ">
-						<div class=" d-flex justify-content-between flex-column">
-							<div
-								class="card h-100 shadow d-flex justify-content-between flex-column ">
-								<a href="<c:url value = "/fund/${item.id}"/>"
-									class="text-decoration-none text-dark"> <img
-									class="img-fluid" alt="" src="${item.imgUrl}" />
-									<div class="card-body">
+					<c:if test="${item.status == 'Active'}">
+						<div class="col mb-4 d-flex ">
+							<div class=" d-flex justify-content-between flex-column">
+								<div
+									class="card h-100 shadow d-flex justify-content-between flex-column ">
+									<a href="<c:url value = "/fund/${item.id}"/>"
+										class="text-decoration-none text-dark"> <img
+										class="img-fluid" alt="" src="${item.imgUrl}" />
+										<div class="card-body">
 
-										<h5 class="card-title pb-2 font-weight-bold">${item.name}</h5>
-										<h6 class="card-subtitle mb-2 pb-2 text-muted font-italic">${item.foundationName}</h6>
-										<p class="card-text mb-1">${item.description}</p>
+											<h5 class="card-title pb-2 font-weight-bold">${item.name}</h5>
+											<h6 class="card-subtitle mb-2 pb-2 text-muted font-italic">${item.foundationName}</h6>
+											<p class="card-text mb-1">${item.description}</p>
 
-									</div>
-								</a>
-								<div class=" ">
-									<div class="row m-3 justify-content-between">
-										<div>
-											<span class="font-weight-bold"> <fmt:formatNumber
-													type="currency" value="${item.currentAmount}" /></span> /<span
-												class="text-secondary"><fmt:formatNumber
-													type="currency" value="${item.expectedAmount}" /></span>
 										</div>
-										<div>
-											<fmt:parseDate var="date" value="${item.endDate}"
-												pattern="yyyy-MM-dd" />
-											<span class="badge badge-success rounded p-2 text-light"><fmt:formatDate
-													value="${date}" pattern="dd-MM-yyyy" /></span>
+									</a>
+									<div class=" ">
+										<div class="row m-3 justify-content-between">
+											<div>
+												<span class="font-weight-bold"> <fmt:formatNumber
+														type="currency" value="${item.currentAmount}" /></span> /<span
+													class="text-secondary"><fmt:formatNumber
+														type="currency" value="${item.expectedAmount}" /></span>
+											</div>
+											<div>
+												<fmt:parseDate var="date" value="${item.endDate}"
+													pattern="yyyy-MM-dd" />
+												<span class="badge badge-success rounded p-2 text-light"><fmt:formatDate
+														value="${date}" pattern="dd-MM-yyyy" /></span>
+											</div>
 										</div>
-									</div>
-									<div class="my-1 mx-3 flex  rounded-lg "
-										style="background-color: #ced4da">
-										<div class="rounded-lg bg-success" aria-valuemin="0"
-											aria-valuemax="100"
-											style="width: ${(item.currentAmount / item.expectedAmount) * 100}%; height: 6px"></div>
-									</div>
-									<div class="row m-3 justify-content-between">
-										<a href="<c:url value = "/fund/${item.id}"/>">
-											<button class="btn btn-outline-success  align-items-end">Quyên
-												góp</button>
-										</a>
-										<p class="mb-0 text-secondary">
-											Đạt được <br> <span class="text-dark font-weight-bold"><fmt:formatNumber
-													value="${(item.currentAmount / item.expectedAmount)}"
-													type="percent" maxFractionDigits="1" /></span>
-										</p>
+										<div class="my-1 mx-3 flex  rounded-lg "
+											style="background-color: #ced4da">
+											<div class="rounded-lg bg-success" aria-valuemin="0"
+												aria-valuemax="100"
+												style="width: ${(item.currentAmount / item.expectedAmount) * 100}%; height: 6px"></div>
+										</div>
+										<div class="row m-3 justify-content-between">
+											<a href="<c:url value = "/fund/${item.id}"/>">
+												<button class="btn btn-outline-success  align-items-end">Quyên
+													góp</button>
+											</a>
+											<p class="mb-0 text-secondary">
+												Đạt được <br> <span class="text-dark font-weight-bold"><fmt:formatNumber
+														value="${(item.currentAmount / item.expectedAmount)}"
+														type="percent" maxFractionDigits="1" /></span>
+											</p>
+										</div>
 									</div>
 								</div>
+
 							</div>
 
 						</div>
+					</c:if>
+					<c:if test="${item.status == 'Finish'}">
+						<div class="col mb-4 d-flex ">
+							<div class=" d-flex justify-content-between flex-column">
+								<div
+									class="card h-100 shadow d-flex justify-content-between flex-column ">
+									<a href="<c:url value = "/fund/${item.id}"/>"
+										class="text-decoration-none text-dark"> <img
+										class="img-fluid" alt="" src="${item.imgUrl}" />
+										<div class="card-body">
 
-					</div>
+											<h5 class="card-title pb-2 font-weight-bold">${item.name}</h5>
+											<h6 class="card-subtitle mb-2 pb-2 text-muted font-italic">${item.foundationName}</h6>
+											<p class="card-text mb-1">${item.description}</p>
+
+										</div>
+									</a>
+									<div class=" ">
+										<div class="row m-3 justify-content-between">
+											<div>
+												<span class="font-weight-bold"> <fmt:formatNumber
+														type="currency" value="${item.currentAmount}" /></span> /<span
+													class="text-secondary"><fmt:formatNumber
+														type="currency" value="${item.expectedAmount}" /></span>
+											</div>
+											<div>
+												<fmt:parseDate var="date" value="${item.endDate}"
+													pattern="yyyy-MM-dd" />
+												<span class="badge badge-info rounded p-2 text-light"><fmt:formatDate
+														value="${date}" pattern="dd-MM-yyyy" /></span>
+											</div>
+										</div>
+										<div class="my-1 mx-3 flex  rounded-lg "
+											style="background-color: #ced4da">
+											<div class="rounded-lg bg-info" aria-valuemin="0"
+												aria-valuemax="100"
+												style="width: ${(item.currentAmount / item.expectedAmount) <= 1 ? ((item.currentAmount / item.expectedAmount) * 100) : 100}%; height: 6px"></div>
+										</div>
+										<div class="row m-3 justify-content-between">
+											<a href="<c:url value = "/fund/${item.id}"/>">
+												<button class="btn btn-outline-info  align-items-end">Xem
+													quỹ</button>
+											</a>
+											<p class="mb-0 text-secondary">
+												Đạt được <br> <span class="text-dark font-weight-bold">Hoàn
+													thành</span>
+											</p>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</c:if>
 				</c:forEach>
 
 			</div>
