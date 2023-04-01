@@ -1,7 +1,5 @@
 package CharityDonation.Controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import CharityDonation.Dto.PaginationDto;
 import CharityDonation.Entity.Account;
 import CharityDonation.Entity.Donation;
 import CharityDonation.Entity.Fund;
@@ -45,12 +44,24 @@ public class UserController {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value = "/user")
-	public ModelAndView user(Authentication authentication) {
+	public ModelAndView user(Authentication authentication, @RequestParam(name = "page", defaultValue = "1") String page) {
 		Account user = accountServiceImpl.getDataAccountByEmail(authentication.getName());
 		ModelAndView mv = new ModelAndView();
-		List<Donation> donations = userService.searchDonationByAccount(user.getUsername());
+		
+		int pageSize = 4;
+		int currentPage = 1;
+		try {
+			currentPage = Integer.parseInt(page);
+		} catch (Exception e) {
+			currentPage = 1;
+		}
+		int totalData = userService.searchDonationByAccount(user.getUsername()).size();
+		PaginationDto paginationInfo = paginationService.getDataPagination(totalData, currentPage, pageSize);
+	
+		mv.addObject("donationsPagination",
+				userService.searchDonationByAccountPagination(user.getUsername() ,paginationInfo.getStart(), paginationInfo.getEnd()));
+		mv.addObject("pagination", paginationInfo);
 		mv.addObject("user", user);
-		mv.addObject("donations", donations);
 		mv.setViewName("user/user");
 		return mv;
 	}

@@ -262,5 +262,10 @@ public class HomeController {
 		mv.setViewName("user/foundation_detail");
 		return mv;
 	}
+	
+	@RequestMapping(value = "/about_us")
+	public String aboutUs() {
+		return "user/about_us";
+	}
 
 }
