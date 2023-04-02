@@ -106,4 +106,14 @@ public class DonationDAO {
 		searchDonationByAccount = jdbcTemplate.query(sql, new MapperDonation());
 		return searchDonationByAccount;
 	}
+	
+	public List<Donation> searchDonationByAccountPagination(String accountName, int start, int end) {
+		List<Donation> searchDonationByAccount = new ArrayList<Donation>();
+		String sql = "select donation.id, donation.amount, donation.message, donation.created_date, account.username, fund.name from donation\r\n"
+				+ "join account on donation.account_id = account.id\r\n" + "join fund on donation.fund_id = fund.id\r\n"
+				+ "where account.username = '" + accountName + "'  limit " + start + ", " + (end - start);
+
+		searchDonationByAccount = jdbcTemplate.query(sql, new MapperDonation());
+		return searchDonationByAccount;
+	}
 }

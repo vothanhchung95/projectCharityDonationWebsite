@@ -85,6 +85,11 @@ public class UserService implements IUserService {
 	}
 
 	@Override
+	public List<Donation> searchDonationByAccountPagination(String accountName, int start, int end) {
+		return donationDAO.searchDonationByAccountPagination(accountName, start, end);
+	}
+
+	@Override
 	public void updateUser(Account user) {
 		accountDAO.updateUser(user);
 	}
