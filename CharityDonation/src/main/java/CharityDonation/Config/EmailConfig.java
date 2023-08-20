@@ -12,14 +12,8 @@ public class EmailConfig {
 
 
 	private String host = "sandbox.smtp.mailtrap.io";
-
-
 	private int port = 2525;
-
-
 	private String username = "33373b82fe3ac0";
-
-
 	private String password = "6fa4599278e545";
 
 	@Bean
