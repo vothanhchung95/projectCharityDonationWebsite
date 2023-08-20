@@ -36,6 +36,7 @@ import CharityDonation.Service.UserService;
 @Validated
 @Controller
 public class HomeController {
+	
 	@Autowired
 	AdminServiceImpl adminServiceImpl;
 	@Autowired
@@ -48,7 +49,7 @@ public class HomeController {
 	UserService userService;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
+	
 	@RequestMapping(value = { "/home", "/" })
 	public ModelAndView userHome(@RequestParam(name = "page", defaultValue = "1") String page,
 			Authentication authentication, HttpSession session) {
